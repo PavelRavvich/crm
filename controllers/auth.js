@@ -1,14 +1,41 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const keys = require('../config/keys');
 
 
-module.exports.login = (req, res) => {
-    res.status(200).json({
-        login: {
-            email: req.body.email,
-            password: req.body.password
+module.exports.login = async (req, res) => {
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const candidate = await User.findOne({email: email});
+
+    if (candidate) {
+        // User is exist verify password.
+        const passwordResult = bcrypt.compareSync(password, candidate.password);
+        if (passwordResult) {
+            // Token generation.
+            const token = jwt.sign({
+                email: candidate.email,
+                userId: candidate._id
+            }, keys.jwt, {expiresIn: 60 * 60});
+
+            res.status(200).json({
+                token: `Bearer ${token}`
+            });
+        } else {
+            res.status(401).json({
+                massage: 'Wrong email or password'
+            });
         }
-    })
+    } else {
+        // User does not exist.
+        res.status(404).json({
+            massage: 'User not found'
+        });
+    }
+
 };
 
 module.exports.register = async (req, res) => {
@@ -26,7 +53,6 @@ module.exports.register = async (req, res) => {
         const sold = bcrypt.genSaltSync(10);
         const password = req.body.password;
 
-
         const user = new User({
             email: req.body.email,
             password: bcrypt.hashSync(password, sold)
@@ -39,6 +65,5 @@ module.exports.register = async (req, res) => {
             console.log(e);
         }
     }
-
 };
 
