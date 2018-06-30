@@ -29,4 +29,4 @@ const orderSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('positions', orderSchema);
+module.exports = mongoose.model('orders', orderSchema);
