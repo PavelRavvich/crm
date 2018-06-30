@@ -13,21 +13,27 @@ const keys = require('./config/keys');
 
 const app = express();
 
+// DB connection.
 mongoose.connect(keys.mongoURI)
     .then(() => console.log("Mongo DB connected"))
     .catch(e => console.log(e));
 
 
-
+// Auth pref.
 app.use(passport.initialize());
 require('./middlware/passport')(passport);
 
 app.use(morgan('dev'));
 app.use(cors());
 
+// Image folder to static.
+app.use('/uploads', express.static('uploads'));
+
+// Body parsing.
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+// Rotes definition.
 app.use('/api/auth', authRoutes);
 app.use('/api/analytic', analytisRoutes);
 app.use('/api/category', categoryRoutes);
