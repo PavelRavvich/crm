@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AuthService} from "../shared/services/auth.service";
+import {MaterialService} from "../shared/services/material.service";
 
 @Component({
     selector: 'app-register-page',
@@ -24,14 +25,6 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
             email: new FormControl(null, [Validators.required, Validators.email]),
             password: new FormControl(null, [Validators.required, Validators.minLength(6)])
         });
-
-        this.route.queryParams.subscribe((params: Params) => {
-            if (params['registered']) {
-                // OK
-            } else if (params['accessDenied']) {
-                // ERR
-            }
-        })
     }
 
     onSubmit() {
@@ -43,7 +36,10 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
                     registered: true
                 }
             }),
-            () => this.form.enable()
+            error => {
+                this.form.enable();
+                MaterialService.toast(error.error.massage);
+            }
         );
     }
 

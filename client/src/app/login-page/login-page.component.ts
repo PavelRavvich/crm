@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../shared/services/auth.service";
 import {Subscription} from "rxjs/index";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {MaterialService} from "../shared/services/material.service";
 
 @Component({
     selector: 'app-login-page',
@@ -16,7 +17,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     constructor(private auth: AuthService,
                 private route: ActivatedRoute,
-                private router: Router) {}
+                private router: Router) {
+    }
 
     ngOnInit() {
         this.form = new FormGroup({
@@ -26,9 +28,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
         this.route.queryParams.subscribe((params: Params) => {
             if (params['registered']) {
-                // OK
+                MaterialService.toast('Вы можете войти в систему');
             } else if (params['accessDenied']) {
-                // ERR
+                MaterialService.toast('Пожалуйста войдите в систему');
+            } else if (params['authTokenExpired']) {
+                MaterialService.toast('Пожалуйста войдите в систему заного');
             }
         });
     }
@@ -38,7 +42,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
         this.aSub = this.auth.login(this.form.value).subscribe(
             () => this.router.navigate(['/overview']),
-            () => this.form.enable()
+            error => {
+                this.form.enable();
+                MaterialService.toast(error.error.massage);
+            }
         );
     }
 

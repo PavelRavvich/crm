@@ -27,13 +27,13 @@ module.exports.login = async (req, res) => {
             });
         } else {
             res.status(401).json({
-                massage: 'Wrong email or password'
+                massage: 'Такого пользователя не существует.'
             });
         }
     } else {
         // User does not exist.
         res.status(404).json({
-            massage: 'User not found'
+            massage: 'Такого пользователя не существует.'
         });
     }
 
