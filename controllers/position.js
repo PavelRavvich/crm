@@ -9,7 +9,7 @@ module.exports.getByCategoryId = async (req, res) => {
             user: req.user.id
         });
 
-        res.status(200).jason(positions);
+        res.status(200).json(positions);
 
     } catch (e) {
         errorHandler(res, e);
@@ -41,7 +41,7 @@ module.exports.remove = async (req, res) => {
         await Position.remove({_id: req.params.id});
 
         res.status(200).json({
-            massage: 'Position has been deleted'
+            massage: 'Позиция удалена'
         });
 
     } catch (e) {

@@ -5,7 +5,7 @@ import {CategoriesService} from "../../shared/services/categories.service";
 import {switchMap} from "rxjs/operators";
 import {of} from "rxjs";
 import {MaterialService} from "../../shared/services/material.service";
-import {Category, Massage} from "../../shared/interfaces";
+import {Category} from "../../shared/interfaces";
 
 @Component({
     selector: 'app-categories-form',

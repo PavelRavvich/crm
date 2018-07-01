@@ -13,3 +13,11 @@ export interface Category {
 export interface Massage {
     massage: string
 }
+
+export interface Position {
+    name:string
+    coast: number
+    category:string
+    user?: string
+    _id?:string
+}
