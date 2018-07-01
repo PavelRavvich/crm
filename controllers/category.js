@@ -27,11 +27,10 @@ module.exports.getById = async (req, res) => {
 
 module.exports.remove = async (req, res) => {
     try {
-
         const categoryId = req.params.id;
         await Position.remove({category: categoryId});
         await Category.remove({_id: categoryId});
-
+        res.status(200).json({massage: 'Категория успешно удалена'});
     } catch (e) {
         errorHandler(res, e);
     }

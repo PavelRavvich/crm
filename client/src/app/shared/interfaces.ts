@@ -9,3 +9,7 @@ export interface Category {
     imageSrc?: string,
     _id?: string
 }
+
+export interface Massage {
+    massage: string
+}

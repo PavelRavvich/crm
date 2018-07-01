@@ -5,7 +5,11 @@
         {{isNew ? 'Добавить' : 'Редактировать'}} категорию
     </h4>
     <span>
-        <button class="btn btn-small red">
+        <button
+            *ngIf="!isNew"
+            (click)="deleteCategory()"
+            class="btn btn-small red"
+        >
             <i class="material-icons">delete</i>
         </button>
     </span>
@@ -32,7 +36,14 @@
         </div>
 
         <div>
+            <input
+                #imgInput
+                type="file"
+                (change)="onImgUpload($event)"
+                style="display: none"/>
             <button
+                [disabled]="form.disabled"
+                (click)="triggerClick()"
                 type="button"
                 class="waves-effect waves-light btn orange lighten-2 mb2"
             >
@@ -53,7 +64,12 @@
     </form>
 
     <div class="col s12 l4 center">
-        <img class="responsive-img" style="height: 200px" src="cake.jpg">
+        <img
+            class="responsive-img"
+            style="height: 200px"
+            [src]="imagePreview"
+            *ngIf="imagePreview"
+        >
     </div>
 </div>
 
