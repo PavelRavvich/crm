@@ -21,7 +21,7 @@ module.exports.create = async (req, res) => {
 
         const position = new Position({
             name: req.body.name,
-            coast: req.body.coast,
+            cost: req.body.cost,
             category: req.body.category,
             user: req.user.id
         });

@@ -16,7 +16,7 @@ export interface Massage {
 
 export interface Position {
     name:string
-    coast: number
+    cost: number
     category:string
     user?: string
     _id?:string
