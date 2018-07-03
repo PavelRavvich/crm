@@ -15,9 +15,25 @@ export interface Massage {
 }
 
 export interface Position {
-    name:string
+    name: string
     cost: number
     category:string
     user?: string
     _id?:string
+    quantity?: number
+}
+
+export interface Order {
+    _id?: string
+    date?: Date
+    order?: number
+    user?: string
+    list: any[]
+}
+
+export interface OrderPosition {
+    name: string
+    cost: number
+    quantity: number
+    _id?: string
 }

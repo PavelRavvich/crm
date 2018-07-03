@@ -4,7 +4,6 @@ import {PositionsService} from "../../../shared/services/positions.service";
 import {Position} from "../../../shared/interfaces";
 import {MaterialModal, MaterialService} from "../../../shared/services/material.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
     selector: 'app-positions-form',
