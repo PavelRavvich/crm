@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChil
 import {ActivatedRoute} from "@angular/router";
 import {PositionsService} from "../../../shared/services/positions.service";
 import {Position} from "../../../shared/interfaces";
-import {MaterialModal, MaterialService} from "../../../shared/services/material.service";
+import {MaterialInstance, MaterialService} from "../../../shared/services/material.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -24,7 +24,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
     loading = false;
 
-    modal: MaterialModal;
+    modal: MaterialInstance;
 
     form: FormGroup;
 

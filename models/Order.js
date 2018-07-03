@@ -18,7 +18,7 @@ const orderSchema = new Schema({
             quantity: {
                 type: Number
             },
-            coast: {
+            cost: {
                 type: Number
             }
         }

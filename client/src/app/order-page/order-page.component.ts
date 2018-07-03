@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
-import {MaterialModal, MaterialService} from "../shared/services/material.service";
+import {MaterialInstance, MaterialService} from "../shared/services/material.service";
 import {OrderService} from "./order.service";
 import {Order, Position} from "../shared/interfaces";
 import {OrdersService} from "../shared/services/orders.service";
@@ -16,7 +16,7 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @ViewChild('modal') modelRef: ElementRef;
 
-    modal: MaterialModal;
+    modal: MaterialInstance;
 
     isRoot: boolean;
 
