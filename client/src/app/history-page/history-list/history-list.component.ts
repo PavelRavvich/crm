@@ -24,7 +24,6 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
         this.modal = MaterialService.initModal(this.modalRef);
     }
 
-
     computePrice(order: Order): number {
         return order.list.reduce((total, item) => {
             return total += item.quantity * item.cost

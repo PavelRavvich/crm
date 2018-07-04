@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from
 import {MaterialInstance, MaterialService} from "../shared/services/material.service";
 import {OrdersService} from "../shared/services/orders.service";
 import {Subscription} from "rxjs/index";
-import {Order} from "../shared/interfaces";
+import {Filter, Order} from "../shared/interfaces";
 
 const STEP = 2;
 
@@ -13,6 +13,7 @@ const STEP = 2;
 })
 export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
+    filter: Filter;
 
     @ViewChild('tooltip') tooltipRef: ElementRef;
     tooltip: MaterialInstance;
@@ -42,10 +43,10 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private fetch () {
 
-        const params = {
-            offset: this.offset,
-            limit: this.limit
-        };
+        const params = Object.assign({}, this.filter, {
+                offset: this.offset,
+                limit: this.limit
+        });
 
         this.oSub = this.ordersService.fetch(params).subscribe(orders => {
             this.orders = this.orders.concat(orders);
@@ -68,5 +69,17 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.offset += STEP;
         this.loadingPagination = true;
         this.fetch()
+    }
+
+    applyFilter(filter: Filter) {
+        this.orders = [];
+        this.offset = 0;
+        this.reloading = true;
+        this.filter = filter;
+        this.fetch()
+    }
+
+    isFiltered(): boolean {
+        return !!this.filter && this.filter !== null && Object.keys(this.filter).length !== 0;
     }
 }

@@ -27,7 +27,7 @@ module.exports.getAll = async (req, res) => {
     }
 
     // Fill filter by order.
-    if (req.query.order) {
+    if (req.query.order && req.query.order !== 'null') {
         query.order = +req.query.order;
     }
 
@@ -38,7 +38,6 @@ module.exports.getAll = async (req, res) => {
             .sort({date: -1})
             .skip(+req.query.offset)
             .limit(+req.query.limit);
-
 
         res.status(200).json(orders);
 
