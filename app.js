@@ -4,6 +4,7 @@ const cors = require('cors');
 const passport = require('passport');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
 authRoutes = require('./routes/auth');
 analytisRoutes = require('./routes/analytic');
 categoryRoutes = require('./routes/category');
@@ -39,5 +40,15 @@ app.use('/api/analytic', analytisRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/position', positionRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/dist/client/index.html'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(
+            path.resolve(__dirname, 'client', 'dist', 'client', 'index.html')
+        );
+    });
+}
 
 module.exports = app;
