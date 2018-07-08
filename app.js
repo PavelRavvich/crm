@@ -43,7 +43,6 @@ app.use('/api/position', positionRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist/client/index.html'));
-    app.use(express.static('client/dist/client/favicon.ico'));
 
     app.get('*', (req, res) => {
         res.sendFile(
